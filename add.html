@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Add new best practise</h1>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+
+<br/>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Best Practise Name
+      </div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <div class="alert alert-success" ng-show="addResponse.isAdded" ng-show="showMessage">
+           <strong>{{addResponse.message}}</strong>
+       </div>
+        <div id="formWrapper" style="max-width: 600px;" ng-show="!showMessage">
+
+          <!--
+                                <form name="userForm">
+  <div class="form-group" ng-class="{ 'has-error': userForm.name.$invalid }">
+      <label class="control-label">Name</label>
+    <input type="text" class="form-control" name="name" ng-model="user.name" required>
+  </div>
+  <div class="form-group" ng-class="{ 'has-error': userForm.email.$invalid }">
+    <input type="email" class="form-control" name="email" ng-model="user.email" required>
+  </div>
+</form>
+
+ !-->
+          <form id="practiseForm" name="theForm" ng-submit="addPractise()" novalidate>
+
+            <div class="form-group" ng-class="{ 'has-error': theForm.name.$invalid && theForm.name.$dirty || nameFound}">
+              <label class="control-label" ng-show="!nameFound">Name</label>
+              <label class="control-label" ng-show="nameFound">Name already exists</label>
+                <span style="color:red;" ng-show="!nameFound">*</span>
+              <input type="text" class="form-control" name="name" ng-model="practise.name" ng-blur="checkName()" ng-keyup="nameFound = false" required>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': theForm.selectCategory.$invalid && theForm.selectCategory.$dirty}">
+              <label class="control-label" ng-show="showCategory">Select Category
+                <span style="color:red;">*</span>
+              </label>
+              <select class="form-control" name="selectCategory" id="category" ng-model="practise.category" placeholder="Choose category..."  ng-init="showCategory = true" ng-show="showCategory" ng-change="addNew()" required>
+                <option value="newCategory">Add new category</option>
+                <option  ng-repeat="name in categories" value="{{name}}">{{name}}</option>
+              </div>
+            </select>
+            <br/>
+
+            <div class="form-group" ng-class="{'has-error': theForm.category.$invalid && theForm.category.$dirty}" ng-show="!showCategory">
+
+              <label class="control-label">Add new category
+                <span style="color:red;">*</span>
+              </label>
+              <input type="text" name="category" class="form-control" ng-model="user.category" ng-required="!showCategory"><br/>
+            </div>
+
+            <div class="form-group" ng-class="{'has-error': theForm.description.$invalid && theForm.description.$dirty}">
+
+              <label class="control-label">Description
+                <span style="color:red;">*</span>
+              </label>
+              <textarea class="form-control" name="description" rows="5" id="description" ng-model="practise.description" required></textarea>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': theForm.code.$invalid && theForm.code.$dirty}">
+              <label class="control-label">Code
+                <span style="color:red;">*</span>
+              </label>
+              <textarea class="form-control" rows="20" id="code" name="code" ng-model="practise.code" required></textarea><br/>
+
+              <button type="submit" class="btn btn-primary btn-block" ng-disabled="theForm.$invalid || nameFound">Add new best practice</button>
+
+            </form>
+
+          </div>
+          <!-- /.table-responsive -->
+        </div>
+        <!-- /.panel-body -->
+      </div>
+      <!-- /.panel -->
+
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <div alert-message></div>

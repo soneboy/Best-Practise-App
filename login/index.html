@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="loginModule">
+<head>
+  <?php
+     session_start();
+     if(isset($_SESSION['username'])){
+
+         header('Location: http://localhost/bestpractise/');
+     };
+  ?>
+    <meta charset="UTF-8">
+    <title>Lolgin</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
+      <style>
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+      }
+      </style>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+      <script src="../node_modules/angular-route/angular-route.min.js"></script>
+  </head>
+
+    <body ng-controller="loginController">
+
+<div class="container">
+  <div class="alert alert-danger" ng-show="userNotFount">
+Invalid username!
+</div>
+
+	<section id="content"  ng-init="b = true" ng-show="b">
+
+		<form ng-submit="login()" name="loginForm" novalidate>
+			<h1>Login Form</h1>
+			<div>
+
+        <div ng-show="loginForm.loginPassword.$dirty && loginForm.loginUsername.$error.required">This field is required!</div>
+        <div ng-show="loginForm.loginUsername.$error.email">Please provide valid Email address!</div>
+
+      	<input type="email" placeholder="Email" required="" id="username" ng-model="user.username" name="loginUsername" required />
+			</div>
+			<div>
+        <div ng-show="loginForm.loginPassword.$error.minlength">Password shoud be at least 6 characters long!</div>
+        <div ng-show="loginForm.loginPassword.$error.pattern && !loginForm.loginPassword.$error.minlength">Password shoud contaion 1 letter and 1 number!</div>
+        <div ng-show="!loginForm.loginPassword.$error.pattern && !loginForm.loginPassword.$error.minlength && loginForm.loginPassword.$error.required && loginForm.loginPassword.$dirty">This field is required!</div>
+
+				<input type="password" placeholder="Password" id="password" ng-model="user.password" name="loginPassword" ng-minlength="6" ng-pattern="/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/" required/>
+			</div>
+			<div>
+				<input type="submit" value="Log in"  ng-show="loginForm.$valid"/>
+				<a href="#">Lost your password?</a>
+				<a href="" ng-click="b=false; a=true; userNotFount = false;">Register</a>
+			</div>
+		</form><!-- form -->
+	</section><!-- content -->
+  <div class="alert alert-success" ng-show="showMessage" id="messageBox">
+     <a href="http://localhost/bestpractise" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+{{message}}
+</div>
+	<section id="content"   ng-init="a = false" ng-show="a" ng-cloak>
+		<form ng-submit="registerCall()" name="registerForm" novalidate>
+			<h1>Register</h1>
+      <div>
+        <div ng-show="registerForm.fullName.$error.patern">Please provide full name!</div>
+        <input type="text" placeholder="Full name" id="fullname" ng-model="register.fullname" name="fullName" required />
+      </div>
+	<div>
+        <div ng-show="registerForm.emailField.$invalid && registerForm.emailField.$dirty">Please provide valid E-Mail address!</div>
+				<input type="email" placeholder="Email" id="username" ng-model="register.email" name="emailField" required />
+			</div>
+			<div>
+        <div ng-show="registerForm.passwordField.$error.minlength">Password should be at least six characters long!</div>
+       <div ng-show="!registerForm.passwordField.$error.minlength && registerForm.passwordField.$error.pattern">At leat one character and one letter should be included</div>
+				<input type="password" placeholder="Password" id="password" ng-model="register.password"  ng-minlength="6" ng-pattern="/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/" name="passwordField" required />
+			</div>
+      <div>
+        <div ng-show="isWatched && registerForm.confirmPassword.$dirty">Password does not match!</div>
+
+        <input type="password" placeholder="Confirm password"  name="confirmPassword" ng-model="register.confirmPassword" required/>
+      </div>
+			<div>
+				<input type="submit" value="Register" ng-disabled="registerForm.$invalid" />
+				<a href="" ng-click="a=false; b=true">Login</a>
+			</div>
+		</form><!-- form -->
+	</section><!-- content -->
+</div><!-- container -->
+
+        <script src="js/index.js"></script>
+        <script src="js/controller.js"></script>
+  </body>
+</html>

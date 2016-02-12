@@ -1,0 +1,62 @@
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Users</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+       <br/>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Users
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                          <div alert-message>
+
+                          </div>
+
+ <div class="col-md-3" ng-repeat="user in users track by $index" ng-show="usersCards" ng-init="usersCards=true">
+    <div class="thumbnail">
+        <img src="http://placehold.it/320x125/EEE" class="">
+        <div class="caption">
+             <p class="">{{user.username}}</p>
+
+            <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur,
+                culpa itaque odio similique suscipit</p> <a href="#" class="btn btn-default btn-xs pull-right" role="button"><i class="glyphicon glyphicon-edit"></i></a>
+                <a href="" class="btn btn-danger btn-xs" role="button" data-toggle="modal" data-target="#myModal" ng-click="passUsername(user.username)">Delete user</a>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Are you sure you want to delete {{catchUsername}} user?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="deleteUser(catchUsername)">OK</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
